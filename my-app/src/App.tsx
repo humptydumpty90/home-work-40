@@ -18,15 +18,14 @@ function App() {
         fetch("https://jsonplaceholder.typicode.com/users")
             .then((res) => res.json())
             .then((data: User[]) => {
-                setLoading(false);
-
-                if (!search) {
+                setTimeout(() => {
                     setUsers(data);
-                    return;
-                }
+                    setLoading(false);
+                }, 1500);
             })
             .catch((err) => {
                 setError(err.message);
+
                 setLoading(false);
             });
     }, []);
@@ -53,7 +52,7 @@ function App() {
 
             <ControlledInput value={search} onChange={setSearch} />
             {loading && <p>Loading...</p>}
-            {error && <p style={{ color: "red" }}>Error: {error}</p>}
+            {error && <p>Error: {error}</p>}
 
             <div className="users-container">
                 {filteredData.map((user) => (
